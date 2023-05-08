@@ -21,7 +21,7 @@
 		<spring.version>5.1.2.RELEASE</spring.version>
 		<junit.version>4.11</junit.version>
 		<log4j.version>1.2.17</log4j.version>
-		<sonar.host.url>http://35.175.185.61:9000/</sonar.host.url>
+		<sonar.host.url>http://54.205.178.105:9000/</sonar.host.url>
 		<sonar.login>admin</sonar.login>
 		<sonar.password>admin</sonar.password>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -97,13 +97,13 @@
 	    <repository>
 	      <id>nexus</id>
 	      <name>JOMACS Releases Nexus Repository</name>
-	      <url>http://54.84.30.30:8081/repository/jeremie-release/</url>
+	      <url>http://52.91.24.191:8081/repository/jeremie-central/</url>
 	    </repository>
 	    
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>JOMACS Snapshot Nexus Repository </name>
-	      <url>http://54.84.30.30:8081/repository/jeremie-snapshot/</url>
+	      <url>http://52.91.24.191:8081/repository/jeremie-release/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>
