@@ -1,0 +1,41 @@
+@Library('JomacsSharedLibrary') _
+
+pipeline{
+    agent any
+    tools{
+        maven "maven3.8.8"
+    }
+    stages{
+        stage("1. Git clone from Repo"){
+            steps{
+                sh "echo start of git clone"
+                git branch: 'main', credentialsId: 'sewoe-credential', url: 'https://github.com/ericsewoe/web-app.git'
+                sh "echo end of git clone"
+            }
+        }
+        
+        stage("2. Build from Maven"){
+            steps{
+                sh "echo start building from Maven"
+                common("Build")
+                sh "echo end of build from Maven"
+            }
+        }
+        
+        stage("3. Code Quality Scan"){
+            steps{
+                sh "echo start of code scanning"
+                common("Code Quality Scan")
+                sh "echo end of code scanning"
+            }
+        }
+        
+        stage("4. Uploading to Nexus"){
+            steps{
+                sh "echo start uploading to Nexus"
+                common("Upload Into nexus")
+                sh "echo end of uploading to Nexus"
+            }
+        }
+    }
+}
