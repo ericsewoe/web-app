@@ -1,0 +1,52 @@
+// declarative project
+
+pipeline{
+    agent any
+    tools{
+        maven "sewoe"
+    }
+    
+    stages{
+        stage("1. git clone from repo"){
+            steps{
+                sh "echo start of git clone"
+                git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/ericsewoe/web-app.git'
+                sh "echo end of git clone"
+            }
+        }
+        
+        stage("2. building of artifact"){
+            steps{
+                sh "echo start of building artifact"
+                sh "mvn clean package"
+                sh "echo end of building artifact"
+            }
+        }
+        
+        stage("3. scanning of artifact"){
+            steps{
+                sh "echo start scanning of artifact"
+                sh "mvn sonar:sonar"
+                sh "echo end of scanning of artifact"
+            }
+        }
+        
+        stage("4. storing artifact to nexus"){
+            steps{
+                sh "echo start deploying to nexus"
+                sh "mvn deploy"
+                sh "echo end deploying to nexus"
+                
+            }
+        }
+        
+        stage("5. deploying to UAT in tomcat"){
+            steps{
+                sh "echo start deploying to tomcat"
+                deploy adapters: [tomcat9(credentialsId: 'tom-credential', path: '', url: 'http://54.172.69.134:8080')], contextPath: null, war: 'target/*.war'
+                sh "echo end of deploy to tomcat"
+            }
+        }
+            
+    }
+}
