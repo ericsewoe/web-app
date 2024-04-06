@@ -63,7 +63,7 @@ pipeline {
 
         stage ("Deploy to UAT") {
             steps {
-                deploy adapters: [tomcat9(credentialsId: 'tomcat-credential', path: '', url: 'http://3.138.193.107:8080')], contextPath: null, war: 'target/*.war'
+                deploy adapters: [tomcat9(credentialsId: 'tomcat-credential', path: '', url: 'http://3.138.193.107:8080/')], contextPath: null, war: 'target/*.war'
             }
         }
     }
