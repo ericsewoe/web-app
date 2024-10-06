@@ -36,5 +36,11 @@ pipeline{
                 nexusArtifactUploader artifacts: [[artifactId: 'maven-web-application', classifier: '', file: '/var/lib/jenkins/workspace/jomacs-webapp-jenkinsfile/target/web-app.war', type: 'war']], credentialsId: 'nexus-credentials', groupId: 'com.mt', nexusUrl: '3.143.141.63:8081/repository/jomacs-webapp', nexusVersion: 'nexus3', protocol: 'http', repository: 'jomacs-webapp', version: '3.0.6-RELEASE'
             }
         }
+
+        stage('prod deployment'){
+            steps{
+                deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://3.137.191.63:8080')], contextPath: null, war: 'target/web-app.war'
+            }
+        }
     }
 }
